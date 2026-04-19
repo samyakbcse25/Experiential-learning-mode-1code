@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Level 01 — HTML Basics</title>
+</head>
+<body bgcolor="cyan" text="#111111" link="#a78bfa" vlink="#7c5cbf">
+  <p>EXPERIENTIAL LEARNING — LEVEL 01 OF 03 — HTML BASICS</p>
+
+  <hr>
+
+  <p>Web Development Tutorial</p>
+  <h1>HTML Basics</h1>
+
+  <hr>
+
+  <p>Tags covered: &lt;!DOCTYPE html&gt; &lt;html&gt; &lt;head&gt; &lt;body&gt; &lt;h1&gt;–&lt;h6&gt; &lt;p&gt; &lt;b&gt; &lt;i&gt; &lt;a href&gt; &lt;img src alt&gt;</p>
+
+  <hr>
+
+  <table width="100%" border="0" cellpadding="10" cellspacing="0">
+    <tr>
+
+      <!-- LEFT: Info / Explanation Section -->
+      <td width="50%" valign="top">
+
+        <h2>AIM :-</h2>
+
+        <h3>Online Tutorial with Code Playground: Design a tutorial page that has an explanation in one section () and a live code example in a that mimics a code editor</h3>
+        
+        <h3>Document Structure</h3>
+        <p>
+          <b>&lt;!DOCTYPE html&gt;</b> — declares HTML5<br>
+          <b>&lt;html&gt;</b> — root element, wraps all<br>
+          <b>&lt;head&gt;</b> — metadata, title (invisible)<br>
+          <b>&lt;body&gt;</b> — everything visible on page
+        </p>
+
+        <h3>Headings &amp; Text</h3>
+        <p>
+          <b>&lt;h1&gt; to &lt;h6&gt;</b> — headings (h1 biggest)<br>
+          <b>&lt;p&gt;</b> — paragraph of text<br>
+          <b>&lt;b&gt;</b> — <b>bold text</b><br>
+          <b>&lt;i&gt;</b> — <i>italic text</i><br>
+          <b>&lt;br&gt;</b> — line break (no closing tag)
+        </p>
+
+        <h3>Links</h3>
+        <p>
+          <b>&lt;a href="url"&gt;text&lt;/a&gt;</b><br>
+          href = the URL to go to.<br>
+          Opens on same page by default.
+        </p>
+
+        <h3>Images</h3>
+        <p>
+          <b>&lt;img src="file" alt="desc"&gt;</b><br>
+          src = path to image file.<br>
+          alt = text if image fails to load.<br>
+          Self-closing — no &lt;/img&gt; needed.
+        </p>
+
+        <p>Try it! Edit the code on the right, then click RUN to see your output live.</p>
+
+      </td>
+
+      <!-- RIGHT: Live Editor Section -->
+      <td width="50%" valign="top" bgcolor="cyan">
+
+        <h2>Live Editor</h2>
+
+        <textarea id="editor" rows="25" cols="60" spellcheck="false" style="background-color:#ffffff; color:#111111; border:2px solid #000000;"></textarea>
+
+        <br>
+        <table>
+          <tr>
+            <td><button style="background-color:green; color:#ffffff;" onclick="runCode()">▶ Run</button></td>
+            <td><button onclick="showEditor()">← Back to Editor</button></td>
+          </tr>
+        </table>
+
+        <br>
+
+        <iframe id="out-frame" width="100%" height="400" frameborder="1" style="border:1px solid #000; background-color:white; display:none;"></iframe>
+      </td>
+
+    </tr>
+  </table>
+
+  <hr>
+
+  <p>CodeCraft — SB Jain Institute of Technology — Experiential Learning — Web Development</p>
+
+  <script>
+    function runCode() {
+      const code = document.getElementById('editor').value;
+      const frame = document.getElementById('out-frame');
+      const doc = frame.contentDocument || frame.contentWindow.document;
+      doc.open(); doc.write(code); doc.close();
+      frame.style.display = 'block';
+    }
+    function showEditor() {
+      document.getElementById('out-frame').style.display = 'none';
+    }
+    document.getElementById('editor').addEventListener('keydown', function(e) {
+      if (e.key === 'Tab') {
+        e.preventDefault();
+        const s = this.selectionStart;
+        this.value = this.value.substring(0, s) + '  ' + this.value.substring(this.selectionEnd);
+        this.selectionStart = this.selectionEnd = s + 2;
+      }
+    });
+  </script>
+</body>
+</html>
