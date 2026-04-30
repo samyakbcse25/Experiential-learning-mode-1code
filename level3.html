@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Advanced HTML Features — CodeLearn Tutorial</title>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #f8fafc;
+      --surface: #ffffff;
+      --surface2: #f1f5f9;
+      --border: #e2e8f0;
+      --accent: #4f46e5;
+      --accent2: #059669;
+      --pink: #db2777;
+      --text: #1e293b;
+      --muted: #64748b;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: var(--bg); color: var(--text); font-family: 'Plus Jakarta Sans', sans-serif; font-size: 15px; line-height: 1.7; }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { color: var(--accent2); }
+
+    /* AIM BANNER */
+    .aim-banner { background: linear-gradient(90deg, #eef2ff, #f0fdf4 60%, #f8fafc); border-bottom: 2px solid var(--accent); padding: 12px 0; }
+    .aim-inner { display: flex; align-items: flex-start; gap: 14px; flex-wrap: wrap; }
+    .aim-pill { background: var(--accent); color: #fff; font-family: 'JetBrains Mono', monospace; font-size: .7rem; font-weight: 700; padding: 4px 13px; border-radius: 20px; white-space: nowrap; letter-spacing: 1.5px; }
+    .aim-text { font-size: .88rem; color: #4338ca; }
+    .aim-text strong { color: #1e1b4b; }
+
+    /* NAVBAR */
+    .site-nav { background: rgba(255,255,255,.97); backdrop-filter: blur(16px); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 1000; }
+    .site-nav .container { display: flex; align-items: center; height: 58px; gap: 24px; }
+    .nav-logo { font-family: 'JetBrains Mono', monospace; font-size: .9rem; color: var(--accent) !important; white-space: nowrap; }
+    .nav-logo span { color: var(--accent2); }
+    .nav-links { display: flex; gap: 2px; list-style: none; }
+    .nav-links a { color: var(--muted); font-size: .83rem; padding: 5px 12px; border-radius: 6px; transition: background .2s, color .2s; }
+    .nav-links a:hover, .nav-links a.active { background: var(--surface2); color: var(--text); }
+    .btn-nav { margin-left: auto; background: var(--accent); color: #fff !important; font-size: .78rem; padding: 6px 16px; border-radius: 7px; font-weight: 700; transition: opacity .2s; }
+    .btn-nav:hover { opacity: .85; }
+    @media(max-width:768px){ .nav-links { display: none; } }
+
+    /* HERO */
+    .hero { background: linear-gradient(135deg, #eef2ff 0%, #f0fdf4 50%, #f8fafc 100%); border-bottom: 1px solid var(--border); padding: 62px 0 50px; position: relative; overflow: hidden; }
+    .hero::before { content: ''; position: absolute; inset: 0; background-image: linear-gradient(#e2e8f0 1px, transparent 1px), linear-gradient(90deg, #e2e8f0 1px, transparent 1px); background-size: 48px 48px; opacity: .4; }
+    .hero-inner { position: relative; z-index: 1; }
+    .breadcrumb-row { display: flex; align-items: center; gap: 7px; font-size: .75rem; color: var(--muted); font-family: 'JetBrains Mono', monospace; margin-bottom: 20px; }
+    .breadcrumb-row .cur { color: var(--accent2); }
+    .hero-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(5,150,105,.08); border: 1px solid rgba(5,150,105,.28); color: var(--accent2); font-family: 'JetBrains Mono', monospace; font-size: .71rem; padding: 5px 14px; border-radius: 20px; margin-bottom: 16px; }
+    .hero-badge::before { content: ''; width: 7px; height: 7px; background: var(--accent2); border-radius: 50%; }
+    .hero h1 { font-size: clamp(1.7rem, 4vw, 2.55rem); font-weight: 700; line-height: 1.2; color: #1e293b; margin-bottom: 14px; }
+    .hero h1 em { font-style: normal; background: linear-gradient(90deg, var(--accent2), var(--accent)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .hero-desc { color: var(--muted); font-size: .95rem; max-width: 520px; margin-bottom: 26px; }
+    .hero-chips { display: flex; flex-wrap: wrap; gap: 12px; }
+    .chip { display: flex; align-items: center; gap: 6px; font-size: .76rem; color: var(--muted); }
+    .chip-dot { width: 8px; height: 8px; border-radius: 50%; }
+    .cd-green { background: var(--accent2); }
+    .cd-pink { background: var(--pink); }
+    .cd-yellow { background: #d97706; }
+
+    /* CONTENT */
+    .content { padding: 30px 40px 60px; max-width: 980px; margin: 0 auto; }
+    @media(max-width:768px){ .content { padding: 20px 16px 40px; } }
+    .sec-h { font-size: 1.22rem; font-weight: 700; color: #1e293b; margin-bottom: 4px; }
+    .sec-s { color: var(--muted); font-size: .83rem; margin-bottom: 22px; }
+
+    /* EXPLANATION SECTION */
+    .explain-section { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 28px 32px; margin-bottom: 30px; box-shadow: 0 1px 4px rgba(0,0,0,.06); }
+    .explain-section h2 { font-size: 1.1rem; font-weight: 700; color: var(--accent2); margin-bottom: 10px; }
+    .explain-section p { color: #475569; font-size: .92rem; margin-bottom: 12px; }
+    .explain-section ul { padding-left: 20px; color: #475569; font-size: .92rem; }
+    .explain-section ul li { margin-bottom: 6px; }
+    .explain-section code { background: #f1f5f9; color: var(--pink); font-family: 'JetBrains Mono', monospace; font-size: .82rem; padding: 2px 7px; border-radius: 4px; border: 1px solid #e2e8f0; }
+
+    /* FEATURE TAGS */
+    .feature-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+    .ftag { background: rgba(5,150,105,.07); border: 1px solid rgba(5,150,105,.25); color: var(--accent2); font-family: 'JetBrains Mono', monospace; font-size: .72rem; padding: 3px 10px; border-radius: 5px; }
+
+    /* PLAYGROUND */
+    .pg-wrap { border: 1px solid #cbd5e1; border-radius: 12px; overflow: hidden; margin-bottom: 26px; display: flex; flex-direction: column; background: #f1f5f9; box-shadow: 0 2px 8px rgba(0,0,0,.07); }
+    .pg-header { display: flex; align-items: center; gap: 12px; padding: 9px 18px; background: #ffffff; border-bottom: 1px solid #e2e8f0; }
+    .pg-logo { font-size: 11px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: #4f46e5; border: 1px solid #c7d2fe; padding: 3px 8px; border-radius: 5px; font-family: 'JetBrains Mono', monospace; }
+    .pg-title { font-size: 13px; font-weight: 600; color: #1e293b; flex: 1; }
+    .pg-run { display: flex; align-items: center; gap: 7px; background: #16a34a; color: #fff; border: none; border-radius: 7px; padding: 7px 18px; font-size: 13px; font-weight: 700; cursor: pointer; font-family: 'JetBrains Mono', monospace; transition: opacity .2s; }
+    .pg-run:hover { opacity: .85; }
+    /* Layout: left col (HTML+CSS stacked) | right col (output full height) */
+    .pg-main-layout { display: flex; height: 580px; }
+    .pg-left-col { display: flex; flex-direction: column; width: 50%; border-right: 2px solid #e2e8f0; }
+    .pg-right-col { display: flex; flex-direction: column; flex: 1; background: #ffffff; }
+    .pg-panel { display: flex; flex-direction: column; min-width: 0; background: #fafafa; }
+    .pg-panel-html { flex: 1; border-bottom: 2px solid #e2e8f0; }
+    .pg-panel-css { flex: 1; }
+    .pg-tab { display: flex; align-items: center; gap: 8px; padding: 7px 12px; background: #f1f5f9; border-bottom: 1px solid #e2e8f0; }
+    .pg-dot { width: 9px; height: 9px; border-radius: 50%; }
+    .pg-editor-wrap { flex: 1; display: flex; overflow: hidden; }
+    .pg-lnums { padding: 10px 10px 10px 0; min-width: 36px; text-align: right; background: #f1f5f9; border-right: 1px solid #e2e8f0; font-family: 'JetBrains Mono', monospace; font-size: 12px; line-height: 1.6; color: #94a3b8; overflow: hidden; user-select: none; white-space: pre; }
+    .pg-textarea { flex: 1; background: #fafafa; border: none; outline: none; resize: none; font-family: 'JetBrains Mono', monospace; font-size: 12px; line-height: 1.6; color: #1e293b; padding: 10px 12px; overflow: auto; white-space: pre; caret-color: #4f46e5; tab-size: 2; }
+    .pg-textarea::selection { background: #c7d2fe; }
+    .pg-textarea::-webkit-scrollbar { width: 4px; height: 4px; }
+    .pg-textarea::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+    .pg-out-header { display: flex; align-items: center; justify-content: space-between; padding: 7px 16px; background: #f1f5f9; border-bottom: 1px solid #e2e8f0; }
+    .pg-out-label { font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: #94a3b8; }
+    .pg-out-status { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #16a34a; display: flex; align-items: center; gap: 6px; }
+    .pg-pulse { width: 7px; height: 7px; border-radius: 50%; background: #16a34a; animation: pgpulse 2s ease-in-out infinite; }
+    @keyframes pgpulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.4;transform:scale(.8)} }
+  </style>
+</head>
+<body>
+
+  <!-- AIM BANNER -->
+  <div class="aim-banner">
+    <div class="container">
+      <div class="aim-inner">
+        <span class="aim-pill">AIM</span>
+        <p class="aim-text"><strong>Online Tutorial with Code Playground</strong> — Design a tutorial page with an explanation section and a live code editor that mimics a real development environment.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- NAVBAR -->
+  <nav class="site-nav">
+    <div class="container">
+      <a class="nav-logo" href="#">&lt;CodeLearn<span>/&gt;</span></a>
+      <ul class="nav-links">
+        <li><a href="#">Home</a></li>
+        <li><a href="#">CSS</a></li>
+        <li><a href="#" class="active">HTML</a></li>
+        <li><a href="#">Bootstrap</a></li>
+        <li><a href="#">Projects</a></li>
+      </ul>
+      <a href="https://github.com/samyakbcse25/Experiential-learning-mode-1code" class="btn-nav">GitHub Repo</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container hero-inner">
+      <div class="breadcrumb-row">
+        <a href="#">Home</a> <span>›</span>
+        <a href="#">HTML Tutorials</a> <span>›</span>
+        <span class="cur">Advanced HTML Features</span>
+      </div>
+      <div class="hero-badge">Level 3 &nbsp;·&nbsp; Advanced HTML Features</div>
+      <h1>Advanced HTML5<br /><em>Forms &amp; Multimedia</em></h1>
+      <p class="hero-desc">Go beyond basic HTML — learn how to build interactive forms with validation, embed audio/video, and use semantic HTML5 elements like &lt;article&gt;, &lt;section&gt;, and &lt;details&gt;.</p>
+      <div class="hero-chips">
+        <div class="chip"><span class="chip-dot cd-green"></span> HTML5 Forms</div>
+        <div class="chip"><span class="chip-dot cd-yellow"></span> Multimedia</div>
+        <div class="chip"><span class="chip-dot cd-pink"></span> Semantic Elements</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTENT -->
+  <div class="container">
+    <main class="content">
+
+      <!-- EXPLANATION SECTION -->
+      <section id="explanation">
+        <div class="sec-h">What are Advanced HTML Features?</div>
+        <div class="sec-s">Read through the concepts below, then try them live in the code editor.</div>
+
+        <div class="explain-section">
+          <h2>1. HTML5 Form Elements &amp; Validation</h2>
+          <p>HTML5 adds new input types and attributes for built-in form validation — no JavaScript needed.</p>
+          <ul>
+            <li><code>type="email"</code> — validates email format</li>
+            <li><code>type="number"</code> — numeric input only</li>
+            <li><code>type="date"</code> — date picker</li>
+            <li><code>required</code> — field cannot be empty</li>
+            <li><code>placeholder</code> — hint text in field</li>
+          </ul>
+        </div>
+
+        <div class="explain-section">
+          <h2>2. Multimedia: Audio &amp; Video</h2>
+          <p>HTML5 lets you embed audio and video directly using <code>&lt;audio&gt;</code> and <code>&lt;video&gt;</code> tags.</p>
+          <ul>
+            <li><code>&lt;video src="..." controls&gt;</code> — embeds a video</li>
+            <li><code>&lt;audio src="..." controls&gt;</code> — embeds audio</li>
+            <li><code>autoplay</code>, <code>loop</code> — optional attributes</li>
+          </ul>
+        </div>
+
+        <div class="explain-section">
+          <h2>3. Semantic HTML5 Elements</h2>
+          <p>Semantic tags describe the meaning of content, improving readability and SEO.</p>
+          <ul>
+            <li><code>&lt;header&gt;</code> — top section of a page</li>
+            <li><code>&lt;article&gt;</code> — self-contained content</li>
+            <li><code>&lt;section&gt;</code> — groups related content</li>
+            <li><code>&lt;details&gt;</code> + <code>&lt;summary&gt;</code> — collapsible block</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- LIVE EDITOR -->
+      <section id="live-editor" style="margin-top:36px;">
+        <div class="sec-h">Live Code Editor</div>
+        <div class="sec-s">Edit HTML and CSS — click Run to see the output live. Press Tab to indent.</div>
+        <div class="pg-wrap">
+          <div class="pg-header">
+            <div class="pg-logo">AIM</div>
+            <span class="pg-title">Online Tutorial — Code Playground</span>
+            <button class="pg-run" onclick="pgRun()">
+              <svg viewBox="0 0 24 24" fill="currentColor" width="13" height="13"><path d="M8 5v14l11-7z"/></svg>
+              Run
+            </button>
+          </div>
+          <!-- LEFT = HTML (top) + CSS (bottom) | RIGHT = full-height Output -->
+          <div class="pg-main-layout">
+
+            <div class="pg-left-col">
+              <div class="pg-panel pg-panel-html">
+                <div class="pg-tab">
+                  <span class="pg-dot" style="background:#f97316;box-shadow:0 0 6px #f97316"></span>
+                  <span style="color:#f97316;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600">index.html</span>
+                </div>
+                <div class="pg-editor-wrap">
+                  <div class="pg-lnums" id="pg-ln-html"></div>
+                  <textarea id="pg-ed-html" class="pg-textarea" spellcheck="false" oninput="pgSyncLines('html')" onscroll="pgSyncScroll('html')" onkeydown="pgTab(event)"></textarea>
+                </div>
+              </div>
+              <div class="pg-panel pg-panel-css">
+                <div class="pg-tab">
+                  <span class="pg-dot" style="background:#3b82f6;box-shadow:0 0 6px #3b82f6"></span>
+                  <span style="color:#3b82f6;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600">style.css</span>
+                </div>
+                <div class="pg-editor-wrap">
+                  <div class="pg-lnums" id="pg-ln-css"></div>
+                  <textarea id="pg-ed-css" class="pg-textarea" spellcheck="false" oninput="pgSyncLines('css')" onscroll="pgSyncScroll('css')" onkeydown="pgTab(event)"></textarea>
+                </div>
+              </div>
+            </div>
+
+            <div class="pg-right-col">
+              <div class="pg-out-header">
+                <span class="pg-out-label">Output</span>
+                <span class="pg-out-status"><div class="pg-pulse"></div>Live Preview</span>
+              </div>
+              <iframe id="pg-frame" style="flex:1;border:none;background:#fff;width:100%;display:block"></iframe>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    function pgRun() {
+      const h = document.getElementById('pg-ed-html').value;
+      const c = document.getElementById('pg-ed-css').value;
+      document.getElementById('pg-frame').srcdoc = h
+        .replace('href="style.css"', '')
+        .replace('</head>', '<style>' + c + '</style></head>');
+    }
+    function pgSyncLines(id) {
+      const ta = document.getElementById('pg-ed-' + id);
+      const ln = document.getElementById('pg-ln-' + id);
+      ln.textContent = ta.value.split('\n').map((_, i) => i + 1).join('\n');
+    }
+    function pgSyncScroll(id) {
+      document.getElementById('pg-ln-' + id).scrollTop = document.getElementById('pg-ed-' + id).scrollTop;
+    }
+    function pgTab(e) {
+      if (e.key !== 'Tab') return;
+      e.preventDefault();
+      const t = e.target, s = t.selectionStart;
+      t.value = t.value.substring(0, s) + '  ' + t.value.substring(t.selectionEnd);
+      t.selectionStart = t.selectionEnd = s + 2;
+      pgSyncLines(t.id.replace('pg-ed-', ''));
+    }
+
+    window.addEventListener('load', function () {
+      document.getElementById('pg-ed-html').value =
+`<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>Hello World</h1>
+</body>
+</html>`;
+
+      document.getElementById('pg-ed-css').value =
+`body {
+  font-family: sans-serif;
+  padding: 20px;
+  background: #f1f5f9;
+}
+header {
+  background: #3b82f6;
+  color: white;
+  padding: 16px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+section, article {
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 16px;
+}
+input {
+  display: block;
+  margin: 8px 0;
+  padding: 8px;
+  border: 1px solid #cbd5e1;
+  border-radius: 5px;
+  width: 220px;
+}
+button {
+  background: #3b82f6;
+  color: white;
+  border: none;
+  padding: 8px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 8px;
+}
+details { margin-top: 8px; }
+summary { cursor: pointer; color: #3b82f6; font-weight: bold; }
+figcaption { font-size: 12px; color: #64748b; }`;
+
+      ['html', 'css'].forEach(id => pgSyncLines(id));
+      pgRun();
+    });
+  </script>
+</body>
+</html>
